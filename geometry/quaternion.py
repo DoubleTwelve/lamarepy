@@ -14,3 +14,21 @@ class quaternion:
     def normalize(self):
         norm = np.linalg.norm(self._coeffs)
         self._coeffs = self._coeffs/norm
+
+    def w(self):
+        return self._coeffs[3]
+
+    def x(self):
+        return self._coeffs[0]
+
+    def y(self):
+        return self._coeffs[1]
+
+    def z(self):
+        return self._coeffs[2]
+
+    def conjugate(self):
+        return quaternion([self.x(), self.y(), -self.z(), self.w()])
+
+
+
