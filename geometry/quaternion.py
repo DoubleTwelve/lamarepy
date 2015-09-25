@@ -3,7 +3,7 @@ from ..geometry import np
 class quaternion:
 
     def __init__(self, coeffs=[0., 0., 0., 1.]):
-        self._coeffs = np.array([coeffs])
+        self._coeffs = np.array(coeffs)
 
     def vec(self):
         return self._coeffs[0:3]
@@ -14,6 +14,11 @@ class quaternion:
     def normalize(self):
         norm = np.linalg.norm(self._coeffs)
         self._coeffs = self._coeffs/norm
+
+    def normalized(self):
+        norm = np.linalg.norm(self._coeffs)
+        coeffs = self._coeffs/norm
+        return quaternion(coeffs)
 
     def w(self):
         return self._coeffs[3]
