@@ -28,7 +28,7 @@ class quaternion:
         return self._coeffs[2]
 
     def conjugate(self):
-        return quaternion([self.x(), self.y(), -self.z(), self.w()])
+        return quaternion([-self.x(), -self.y(), -self.z(), self.w()])
 
 
 
