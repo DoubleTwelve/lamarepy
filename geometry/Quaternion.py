@@ -1,7 +1,7 @@
 from ..geometry import np
 import math
 
-class quaternion(object):
+class Quaternion(object):
 
     def __init__(self, coeffs=[0., 0., 0., 1.]):
         self._coeffs = np.array(coeffs)
@@ -19,7 +19,7 @@ class quaternion(object):
     def normalized(self):
         norm = np.linalg.norm(self._coeffs)
         coeffs = self._coeffs/norm
-        return quaternion(coeffs)
+        return Quaternion(coeffs)
 
     @property
     def w(self):
@@ -54,7 +54,7 @@ class quaternion(object):
         self._coeffs[2] = value
 
     def conjugate(self):
-        return quaternion([-self.x(), -self.y(), -self.z(), self.w()])
+        return Quaternion([-self.x(), -self.y(), -self.z(), self.w()])
 
     def to_rotation_matrix(self):
         qx, qy, qz, qw = self._coeffs
@@ -101,28 +101,28 @@ class quaternion(object):
             qx = (m21 - m12) / S
             qy = (m02 - m20) / S
             qz = (m10 - m01) / S
-            return quaternion([qx, qy, qz, qw])
+            return Quaternion([qx, qy, qz, qw])
         elif (m00 > m11 and m00 > m22):
             S = math.sqrt(1. + m00 - m11 - m22) * 2
             qw = (m21 - m12) / S
             qx = 0.25 * S
             qy = (m01 + m10) / S
             qz = (m02 + m20) / S
-            return quaternion([qx, qy, qz, qw])
+            return Quaternion([qx, qy, qz, qw])
         elif (m11 > m22):
             S = math.sqrt(1.0 + m11 - m00 - m22) * 2
             qw = (m10 - m20) / S
             qx = (m01 + m10) / S
             qy = 0.25 * S
             qz = (m12 + m21) / S
-            return quaternion([qx, qy, qz, qw])
+            return Quaternion([qx, qy, qz, qw])
         else:
             S = math.sqrt(1.0 + m22 - m00 - m11) * 2
             qw = (m10 - m01) / S
             qx = (m02 + m20) / S
             qy = (m12 + m21) / S
             qz = 0.25 * S
-            return quaternion([qx, qy, qz, qw])
+            return Quaternion([qx, qy, qz, qw])
 
 
 
