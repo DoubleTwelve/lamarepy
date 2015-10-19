@@ -1,5 +1,5 @@
 from ..geometry import Point3
-from ..geometry import Quaternion
+from ..geometry import Affine3
 import numpy as np
 import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
@@ -9,8 +9,9 @@ import matplotlib.pyplot as plt
 
 def show_q(quat):
     R = quat.to_rotation_matrix()
+    RT = Affine3(R)
 
-    rot_point = lambda pt: Point3(np.inner(R, pt.coeffs()))
+    rot_point = lambda pt: Point3(np.inner(RT.matrix(), pt.to_homogeneous()))
 
     A = Point3([0, 0, 0.1])
     B = Point3([0, 5, 0.1])
@@ -115,5 +116,6 @@ def show_q(quat):
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
+    ax.set_aspect("equal")
     ax.plot(X, Y, Z)
     plt.show()
