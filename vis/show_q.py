@@ -11,7 +11,7 @@ def show_q(quat):
     R = quat.to_rotation_matrix()
     RT = Affine3(R)
 
-    rot_point = lambda pt: Point3(np.inner(RT.matrix(), pt.to_homogeneous()))
+    rot_point = lambda pt: RT * pt
 
     A = Point3([0, 0, 0.1])
     B = Point3([0, 5, 0.1])

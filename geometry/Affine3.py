@@ -1,4 +1,5 @@
 from ..geometry import np
+from ..geometry import Point3
 import math
 
 
@@ -18,3 +19,13 @@ class Affine3(object):
 
     def translation(self):
         return self._coeffs[0:3, 3]
+
+    def __mul__(self, other):
+        if (isinstance(other, Point3)):
+            point = Point3()
+            point.x = self._coeffs[0][0] * other.x + self._coeffs[0][1] * other.y + self._coeffs[0][2] * other.z + self._coeffs[0][3]
+            point.y = self._coeffs[1][0] * other.x + self._coeffs[1][1] * other.y + self._coeffs[1][2] * other.z + self._coeffs[1][3]
+            point.z = self._coeffs[2][0] * other.x + self._coeffs[2][1] * other.y + self._coeffs[2][2] * other.z + self._coeffs[2][3]
+            return point
+        else:
+            return self
